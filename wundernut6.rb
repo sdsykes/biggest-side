@@ -2,31 +2,31 @@ module Wundernut6
   def self.solve(heights)
     biggest_side = 1
     len = heights.length
-    
+
     i = 0
     while i + biggest_side <= len
       skip = 0
-    
-      (biggest_side + 1).upto(heights[i]) do |side|
-        # check if there is enough room to the end
-        break if side + i > len
-    
-        1.upto(side - 1) do |index_offset|
-          if heights[i + index_offset] < side
-            # skip past this point, nothing can be found before
-            skip = index_offset
-            break
-          end
+
+      smallest = heights[i]
+      0.upto(len - i - 1) do |index_offset|
+        col_height = heights[i + index_offset]
+        side = index_offset + 1
+
+        if col_height <= biggest_side
+          skip = index_offset
+          break
         end
-        
-        break if skip > 0
-    
-        biggest_side = side
+
+        smallest = col_height if col_height < smallest
+
+        break if smallest < side
+
+        biggest_side = side if side > biggest_side
       end
-    
+
       i += 1 + skip
     end
-  
+
     return biggest_side
   end
 end
