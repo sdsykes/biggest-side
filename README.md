@@ -12,19 +12,18 @@ When run, the program produces the following result:
 
 ### Solution description
 
-This is a straightforward algorithm, with an important optimisation.
+This is a fast algorithm - a straightforward design with some important optimisations.
 
 The program iterates over the dataset looking for a square height bigger than the biggest one already found.
 
-For each height to be tested (going from current best to height of the current column), the program will look ahead the same number of column positions, and set a new best height if all those columns have a higher height.
+As it iterates through each column, it will look ahead as far as it can to find the biggest square that starts in the current column.
 
-Each column is similarly treated in turn.
+If a column is encountered that is lower than the current best size, then we immediately skip to the next column after the low column.
 
-Although this algorithm will find the correct answer, the performance can be better. So there is an optimisation made such that as soon as we fail a test (so the height of a column is less than the height we are testing), then we immediately stop testing the current column, and set the current column to be the one immediately after the one that caused the test to fail.
+And if the search ends because the size cannot be increased any more because of an earlier limiting column, then the search will restart
+immediately after this limiting column.
 
-This works because there cannot be any improved height starting with any column after the current one and before the failed one (or on the failed one itself).
-
-The solution runs in around 50mS on my machine.
+The solution runs in around 50mS on my machine, but most of this is Ruby startup time - the algorithm itself takes a few milliseconds to run.
 
 ### Tests
 

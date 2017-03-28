@@ -6,8 +6,8 @@ class TestBiggest < MiniTest::Test
   end
   
   def test_ascending
-    data = 1.upto(20).inject([]) {|a, n| a << n}
-    assert_equal(10, Wundernut6.solve(data))
+    data = 1.upto(21).inject([]) {|a, n| a << n}
+    assert_equal(11, Wundernut6.solve(data))
   end
 
   def test_descending
