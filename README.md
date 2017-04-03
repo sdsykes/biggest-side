@@ -18,12 +18,11 @@ The program iterates over the dataset looking for a square height bigger than th
 
 As it iterates through each column, it will look ahead as far as it can to find the biggest square that starts in the current column.
 
-If a column is encountered that is lower than the current best size, then we immediately skip to the next column after the low column.
+If a column is encountered that is lower than the current best size, then we immediately skip to the next column after the low column. This is an important optimisation.
 
-And if the search ends because the size cannot be increased any more because of an earlier limiting column, then the search will restart
-immediately after this limiting column.
+And if the search from the current column ends because the size cannot be increased any more because of a smaller column somewhere in the ones already checked, then the search will restart immediately after this limiting column. This is the purpose of the _smallest_ variable, to store the size that cannot, from the current column, be exceeded.
 
-The solution runs in around 50mS on my machine, but most of this is Ruby startup time - the algorithm itself takes a few milliseconds to run.
+The solution is fast and completes after executing only 10173 inner loops (considering there are 10000 columns).
 
 ### Tests
 
